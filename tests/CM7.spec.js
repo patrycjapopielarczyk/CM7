@@ -1,27 +1,41 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
 import {MainPage} from './pages/mainPage';
+import { ProductPage } from './pages/productPage';
+import products from '../data/products.json';
 
 
-/*test('has title', async ({ page }) => {
-  await page.goto('/');
-
+  test('e2e for purchasing product - Kubek', async ({page})=>{
   
-  await expect(page).toHaveTitle('Testowy Sklep – Strona główna');
-});
-*/
-test('E2E', async ({page})=>{
-  const mainPage = new MainPage(page)
-  await mainPage.goto()
-  //await page.goto('/');
-  await expect(page).toHaveTitle(mainPage.pageTitle);
-  //await expect(page).toHaveTitle('Testowy Sklep – Strona główna');
-  await page.getByTestId('product-title-8').click();
-  expect(page).toHaveTitle('Kubek Debuggera – Testowy Sklep');
-  await page.getByTestId('buy-btn-8').click();
-  expect (page.locator('.toast-container')).toBeVisible();
-  await page.locator('#cart-button').click();
-  expect(page.locator('#cart-panel')).toBeVisible();
-  await page.locator('#cart-buy').click();
-  expect (page.locator('.toast-success')).toBeVisible();
- })
+    const mainPage = new MainPage(page)
+    const productPage = new ProductPage(page)
+  
+  await mainPage.goto();
+  await mainPage.VerifyListOfItemsVisible();
+  await mainPage.clickProductByName('Kubek Debuggera');
+  await productPage.checkProductIdInUrl('p8');
+  await productPage.addToCartKubek();
+  await productPage.goToCart();
+  await productPage.buyProduckt();
+
+  })
+  
+  products.forEach((product) => {
+    test(`product page - e2e for purchasing: ${product.name}`, async ({page})=>{
+    const mainPage = new MainPage(page)
+    const productPage = new ProductPage(page)
+  
+  await mainPage.goto();
+  await mainPage.VerifyListOfItemsVisible();
+  await mainPage.clickProductByName(product.name);
+  await productPage.checkProductIdInUrl(product.id);
+  await productPage.addToCart(product.name);
+  await productPage.goToCart();
+  await productPage.buyProduckt();
+    }
+    )
+  })
+  
+  
+  
+  

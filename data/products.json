@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Miecz Runiczny",
+    "id": "p1",
+    "price": "199.99 zł"
+  },
+  {
+    "name": "Eliksir Energii",
+    "id": "p2",
+    "price": ""
+  },
+  {
+    "name": "Peleryna Maskująca",
+    "id": "p3",
+    "price": ""
+  },
+  {
+  "name": "Kubek Debuggera",
+    "id": "p8",
+    "price": ""
+  }
+]
