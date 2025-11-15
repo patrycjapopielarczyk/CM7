@@ -11,6 +11,7 @@ export class MainPage{
         this.messageDodanoDoKoszyka = page.locator('.toast-container');
         this.messageUsunietoZKoszyka = page.getByText('Usunięto z koszyka: Kubek Debuggera');
         this.messageKupSuccess = page.getByText('sukces');
+          
     }
     async goto(){
         await this.page.goto(this.url);
@@ -26,7 +27,8 @@ export class MainPage{
     async addToCartbyId(productId){
         await this.buttonAddToCart(productId).click();
     }
-    
+  
 }
+
 
 module.exports = {MainPage};
