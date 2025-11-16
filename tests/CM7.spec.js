@@ -113,4 +113,43 @@ test ('API test POST', async ({request})=>{
     expect (await responsePost.text()).toContain('PLN')
 
   })
-  
+
+test ('API test PUT', async ({request})=>{
+    const responsePut = await request.put('/api/index.php?endpoint=products&id=3',{
+    data:{
+      
+     "name": "Zmieniony",
+      "price": 111.11
+
+    }})
+    console.log("Wynik PUT to:" + await responsePut.text())
+
+    expect(responsePut.ok()).toBeTruthy();
+    expect (await responsePut.text()).toContain('Zmieniony')
+
+  })
+ 
+test ('API test PATCH', async ({request})=>{
+    const responsePatch = await request.patch('/api/index.php?endpoint=products&id=3',{
+    data:{
+      
+      "price": 222.22
+
+    }})
+    console.log("Wynik PATCH to:" + await responsePatch.text())
+
+    expect(responsePatch.status()).toBe(200)
+    expect (await responsePatch.text()).toContain('222.22')
+
+  })
+
+test ('API test DELETE', async ({request})=>{
+    const responseDelete = await request.delete('/api/index.php?endpoint=products&id=3')
+
+    console.log("Wynik DELETE to:" + await responseDelete.text())
+
+    expect(responseDelete.ok()).toBeTruthy();
+    expect(await responseDelete.status()).toBe(204);
+    //expect (await responsePost.text()).toContain('PLN')
+  })
+
